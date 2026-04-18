@@ -1,12 +1,11 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
 import axios from "axios";
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const useAuthStore = create((set) => ({
   user: null,
-  token: null,
-  isAuthenticated: false,
+  token: localStorage.getItem("token") || null,
+  isAuthenticated: Boolean(localStorage.getItem("token")),
   loading: false,
   error: null,
   signup: async (userData) => {
@@ -15,13 +14,15 @@ export const useAuthStore = create((set) => ({
       const res = await axios.post(`${API_BASE_URL}/api/auth/signup`, userData);
       set({
         user: res.data.user,
+        token: res.data.token,
         isAuthenticated: true,
         loading: false,
         error: null,
       });
+      localStorage.setItem("token", res.data.token);
     } catch (err) {
       set({
-        error: err.response?.data?.message || "Signup Failed",
+        error: err.response?.data?.message || "Signup failed",
         loading: false,
       });
     }
@@ -29,7 +30,7 @@ export const useAuthStore = create((set) => ({
   signin: async (userData) => {
     try {
       set({ loading: true });
-      const res = await axios.post(`${API_BASE_URL}/api/auth/signup`, userData);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/signin`, userData);
       set({
         user: res.data.user,
         token: res.data.token,

@@ -1,8 +1,10 @@
-import React from 'react'
 const Preview = () => {
-    const data = useDocStore()
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">Preview</h1>
+        <p>This is the preview page.</p>
+      </div>
     </div>
   )
 }

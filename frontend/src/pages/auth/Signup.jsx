@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,8 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import { useAuthStore } from "@/store/useAuthStore"; // adjust path as needed
-import { Link } from "react-router-dom";
+import { useAuthStore } from "@/store/useAuthStore";
 // ── Gradient Left Panel ────────────────────────────────────────────────────────
 function GradientPanel() {
   return (
@@ -127,7 +127,14 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [validationError, setValidationError] = useState("");
 
-  const { signup, loading, error } = useAuthStore();
+  const { signup, loading, error, isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSignUp = async () => {
     setValidationError("");
