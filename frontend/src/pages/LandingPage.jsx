@@ -1,236 +1,210 @@
 import AppLogo from "@/components/AppLogo";
 import Navbar from "@/components/Navbar";
 import { Link } from "react-router-dom";
+import { ArrowRight, Check, History, Layers, ShieldCheck, Sparkles } from "lucide-react";
+
+const features = [
+  {
+    icon: History,
+    title: "Complete version timeline",
+    description: "Every save becomes a structured checkpoint with clear metadata and history.",
+  },
+  {
+    icon: Layers,
+    title: "Compare drafts instantly",
+    description: "See what changed between any two versions before you decide to restore.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Safe by default",
+    description: "Recover from mistakes in seconds and keep a reliable audit trail of edits.",
+  },
+];
+
+const steps = [
+  {
+    title: "Write naturally",
+    description: "Use the editor like any normal document tool. No technical setup needed.",
+  },
+  {
+    title: "Commit each milestone",
+    description: "Save with a message to capture progress and maintain meaningful history.",
+  },
+  {
+    title: "Review and recover",
+    description: "Open timeline, inspect previous versions, and restore with confidence.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "We stopped losing client-facing copy revisions. The timeline made approvals and rewrites painless.",
+    name: "Riya Patel",
+    role: "Content Lead",
+  },
+  {
+    quote:
+      "It feels like Git, but for our non-technical team. Exactly what we needed for spec iteration.",
+    name: "Aman Verma",
+    role: "Product Manager",
+  },
+];
 
 function Hero() {
   return (
-    <section
-      className="relative overflow-hidden min-h-[calc(100vh-64px)] flex flex-col items-center justify-center px-4"
-      style={{
-        background: "radial-gradient(ellipse at 50% 40%, #f0f0f0 0%, #e8e8e8 60%, #d8d8d8 100%)",
-      }}
-    >
-      {/* dot grid */}
+    <section className="relative overflow-hidden px-4 pt-18 pb-16 sm:pt-24 sm:pb-24">
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(circle, #aaa 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+          background: "radial-gradient(ellipse at 50% 35%, #f3f3f3 0%, #e9e9e9 55%, #dcdcdc 100%)",
         }}
       />
+      <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(120,120,120,0.24)_1px,_transparent_1px)] [background-size:24px_24px] opacity-35" />
 
-      {/* version timeline decoration */}
-      <div className="absolute left-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-0 select-none">
-        {["v4", "v3", "v2", "v1"].map((v, i) => (
-          <div key={v} className="flex flex-col items-center">
-            <div
-              className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold ${
-                i === 0
-                  ? "border-gray-900 bg-gray-900 text-white"
-                  : "border-gray-300 bg-white text-gray-400"
-              }`}
-            >
-              {v}
+      <div className="relative mx-auto max-w-6xl">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="space-y-8">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/75 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-gray-600">
+              <Sparkles className="h-3.5 w-3.5" />
+              Version Control for Documents
+            </span>
+
+            <div className="space-y-5">
+              <h1 className="text-5xl font-black leading-[1.05] tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
+                Document history
+                <span className="block text-gray-500">that actually feels effortless.</span>
+              </h1>
+              <p className="max-w-xl text-base leading-relaxed text-gray-600 sm:text-lg">
+                Keep every meaningful change, annotate progress with commit messages, and move between drafts
+                without fear. Built for teams that care about clarity, quality, and control.
+              </p>
             </div>
-            {i < 3 && <div className="w-px h-8 bg-gray-300" />}
-          </div>
-        ))}
-      </div>
 
-      <AppLogo />
-
-      <div className="relative z-10 text-center mt-10 md:mt-16 max-w-3xl">
-        <span className="inline-block text-xs font-semibold tracking-widest uppercase text-gray-400 mb-6 border border-gray-300 rounded-full px-4 py-1 bg-white/60">
-          Version control · for documents
-        </span>
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-gray-900 leading-tight">
-          Every edit, every draft,
-        </h1>
-        <h2 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-gray-400 leading-tight mt-1">
-          forever preserved.
-        </h2>
-        <p className="mt-6 text-gray-500 text-base md:text-lg max-w-md mx-auto leading-relaxed">
-          Write and edit documents like normal — but every save creates a permanent snapshot. Roll back, compare, and restore any version, any time.
-        </p>
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <Link to="/signup" className="inline-flex items-center justify-center px-8 py-3 bg-gray-900 text-white rounded-full font-semibold text-sm hover:bg-gray-700 transition-colors">
-            Start writing for free
-          </Link>
-          <button className="px-8 py-3 border border-gray-300 text-gray-700 rounded-full font-semibold text-sm hover:bg-white transition-colors">
-            See version history demo
-          </button>
-        </div>
-        <p className="mt-3 text-xs text-gray-400">No credit card. Free forever for personal use.</p>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40">
-        <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gray-400" />
-      </div>
-    </section>
-  );
-}
-
-/* ─── Features ───────────────────────────────────────────────────────── */
-const features = [
-  {
-    icon: "🕰️",
-    title: "Infinite version history",
-    description:
-      "Every save is a checkpoint. Your entire edit history is stored automatically — no manual commits needed.",
-  },
-  {
-    icon: "↩️",
-    title: "One-click restore",
-    description:
-      "Found a better draft from three days ago? Restore any previous version instantly without losing your current work.",
-  },
-  {
-    icon: "🔍",
-    title: "Side-by-side diff viewer",
-    description:
-      "Compare any two versions side by side with character-level highlighting so you see exactly what changed.",
-  },
-  {
-    icon: "✏️",
-    title: "Rich document editor",
-    description:
-      "A clean, distraction-free editor with rich text formatting — headings, lists, tables, code blocks, and more.",
-  },
-  {
-    icon: "🏷️",
-    title: "Named milestones",
-    description:
-      "Tag important versions with labels like 'Final Draft' or 'Client Review' to navigate your history at a glance.",
-  },
-  {
-    icon: "🔗",
-    title: "Shareable version links",
-    description:
-      "Share a link to any specific version of a document — perfect for reviews, approvals, and audit trails.",
-  },
-];
-
-function Features() {
-  return (
-    <section className="py-24 px-4 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
-            Features
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-3 tracking-tight">
-            Git for your documents
-          </h2>
-          <p className="mt-4 text-gray-500 max-w-md mx-auto">
-            All the power of version control — none of the terminal commands.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all bg-gray-50"
-            >
-              <div className="text-2xl mb-3">{f.icon}</div>
-              <h3 className="font-bold text-gray-900 text-lg mb-2">{f.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{f.description}</p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                to="/signup"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-gray-800"
+              >
+                Start for free
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                to="/signin"
+                className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white/80 px-7 py-3.5 text-sm font-semibold text-gray-700 transition-all hover:-translate-y-0.5 hover:border-gray-400"
+              >
+                Open dashboard
+              </Link>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
-/* ─── How It Works ───────────────────────────────────────────────────── */
-const steps = [
-  {
-    number: "01",
-    title: "Create a document",
-    description:
-      "Start a new document and write freely in our rich text editor — just like any writing tool you already know.",
-  },
-  {
-    number: "02",
-    title: "Edit and save",
-    description:
-      "Every time you hit save, a new version snapshot is captured automatically in the background.",
-  },
-  {
-    number: "03",
-    title: "Browse your timeline",
-    description:
-      "Open the version timeline to see every save — with timestamps, word counts, and a preview of changes.",
-  },
-  {
-    number: "04",
-    title: "Restore or compare",
-    description:
-      "Jump back to any version, compare two snapshots side by side, or branch off from an older draft.",
-  },
-];
-
-function HowItWorks() {
-  return (
-    <section className="py-24 px-4 bg-gray-950">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-widest uppercase text-gray-500">
-            How it works
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black text-white mt-3 tracking-tight">
-            Save normally. Travel freely.
-          </h2>
-          <p className="mt-4 text-gray-400 max-w-sm mx-auto text-sm">
-            No new habits to build. Your writing workflow stays exactly the same.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {steps.map((step) => (
-            <div key={step.number} className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center">
-                <span className="text-xs font-bold text-gray-400 tracking-wider">{step.number}</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-white text-lg mb-1">{step.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Mini timeline visual */}
-        <div className="mt-16 p-6 rounded-2xl bg-gray-900 border border-gray-800">
-          <p className="text-xs text-gray-500 uppercase tracking-widest mb-4">
-            Version timeline · Project Proposal.docx
-          </p>
-          <div className="space-y-3">
-            {[
-              { label: "v6 — Today, 4:32 PM", note: "Final edits before submission", active: true },
-              { label: "v5 — Today, 2:14 PM", note: "Added executive summary" },
-              { label: "v4 — Yesterday, 11:40 AM", note: "Rewrote introduction" },
-              { label: "v3 — Yesterday, 9:05 AM", note: "Tagged: 'Client Draft'" },
-              { label: "v2 — Mon, 6:22 PM", note: "Added budget table" },
-              { label: "v1 — Mon, 3:00 PM", note: "Initial document created" },
-            ].map((v, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div
-                  className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-                    v.active ? "bg-white" : "bg-gray-600"
-                  }`}
-                />
-                <span className={`text-sm font-medium ${v.active ? "text-white" : "text-gray-500"}`}>
-                  {v.label}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+              {["No credit card", "Built for collaboration", "Restore anytime"].map((item) => (
+                <span key={item} className="inline-flex items-center gap-2">
+                  <Check className="h-4 w-4 text-gray-700" />
+                  {item}
                 </span>
-                <span className="text-xs text-gray-600 ml-1">— {v.note}</span>
-                {v.active && (
-                  <span className="ml-auto text-xs bg-gray-700 text-gray-300 rounded px-2 py-0.5">
-                    current
-                  </span>
-                )}
+              ))}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -top-8 left-1/2 z-20 -translate-x-1/2">
+              <AppLogo />
+            </div>
+            <div className="rounded-3xl border border-gray-300/80 bg-white/85 p-6 pt-14 shadow-2xl backdrop-blur-sm">
+              <div className="mb-4 flex items-center justify-between border-b border-gray-200 pb-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.16em] text-gray-400">Current document</p>
+                  <p className="mt-1 text-sm font-semibold text-gray-900">Launch Strategy Brief</p>
+                </div>
+                <span className="rounded-full bg-gray-900 px-2.5 py-1 text-xs font-semibold text-white">v12</span>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { v: "v12", msg: "Refine positioning for enterprise", active: true },
+                  { v: "v11", msg: "Update pricing narrative" },
+                  { v: "v10", msg: "Add rollout timeline table" },
+                  { v: "v09", msg: "First internal review draft" },
+                ].map((item) => (
+                  <div
+                    key={item.v}
+                    className={`rounded-xl border px-3 py-2.5 transition-colors ${
+                      item.active
+                        ? "border-gray-800 bg-gray-900 text-white"
+                        : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
+                    }`}
+                  >
+                    <p className={`text-[11px] font-semibold uppercase tracking-wider ${item.active ? "text-gray-200" : "text-gray-400"}`}>
+                      {item.v}
+                    </p>
+                    <p className="mt-1 text-sm">{item.msg}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeatureGrid() {
+  return (
+    <section className="bg-white px-4 py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-400">Why teams choose Kodoc</p>
+          <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-5xl">
+            Modern workflow, minimal friction
+          </h2>
+          <p className="mt-4 text-gray-500">
+            Clean information architecture, strong defaults, and versioning behaviors that scale from solo writing
+            to team reviews.
+          </p>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {features.map((item) => (
+            <div
+              key={item.title}
+              className="group rounded-2xl border border-gray-200 bg-gray-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:bg-white hover:shadow-lg"
+            >
+              <item.icon className="h-5 w-5 text-gray-700" />
+              <h3 className="mt-4 text-lg font-bold text-gray-900">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Workflow() {
+  return (
+    <section className="bg-gray-950 px-4 py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">How it works</p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
+              Keep momentum.
+              <span className="block text-gray-400">Never lose context.</span>
+            </h2>
+            <p className="mt-4 max-w-lg text-gray-400">
+              The workflow mirrors how modern version control works, without introducing technical overhead for writers.
+            </p>
+          </div>
+
+          <div className="space-y-5">
+            {steps.map((step, index) => (
+              <div key={step.title} className="rounded-2xl border border-gray-800 bg-gray-900/80 p-5">
+                <div className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-700 text-xs font-bold text-gray-300">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <h3 className="text-lg font-semibold text-white">{step.title}</h3>
+                <p className="mt-1 text-sm text-gray-400">{step.description}</p>
               </div>
             ))}
           </div>
@@ -240,59 +214,31 @@ function HowItWorks() {
   );
 }
 
-/* ─── Use Cases ──────────────────────────────────────────────────────── */
-const useCases = [
-  {
-    title: "Writers & novelists",
-    description:
-      "Never lose a chapter you deleted. Keep every draft of your manuscript and track how your story evolved from first idea to final page.",
-    tag: "Creative writing",
-  },
-  {
-    title: "Legal & compliance teams",
-    description:
-      "Maintain an immutable audit trail of every contract and policy change — who saved what, and when.",
-    tag: "Legal & compliance",
-  },
-  {
-    title: "Students & researchers",
-    description:
-      "Track how your thesis or research paper evolved. Revisit abandoned arguments or recover deleted citations effortlessly.",
-    tag: "Academia",
-  },
-  {
-    title: "Product & design teams",
-    description:
-      "Keep specs, PRDs, and briefs versioned. See exactly how requirements changed from kickoff to launch.",
-    tag: "Product teams",
-  },
-];
-
-function UseCases() {
+function SocialProof() {
   return (
-    <section className="py-24 px-4 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
-            Use cases
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-3 tracking-tight">
-            Built for every writer
-          </h2>
+    <section className="bg-white px-4 py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-400">Trusted by teams</p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-5xl">
+              Built for real collaboration loops
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm text-gray-500">
+            From strategy docs to client deliverables, teams rely on Kodoc to keep every revision traceable.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {useCases.map((u) => (
-            <div
-              key={u.title}
-              className="p-7 rounded-2xl border border-gray-100 bg-gray-50 hover:border-gray-300 transition-all"
-            >
-              <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-                {u.tag}
-              </span>
-              <h3 className="font-bold text-gray-900 text-xl mt-2 mb-2">{u.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{u.description}</p>
-            </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          {testimonials.map((item) => (
+            <blockquote key={item.name} className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+              <p className="text-base leading-relaxed text-gray-700">"{item.quote}"</p>
+              <footer className="mt-5">
+                <p className="font-semibold text-gray-900">{item.name}</p>
+                <p className="text-sm text-gray-500">{item.role}</p>
+              </footer>
+            </blockquote>
           ))}
         </div>
       </div>
@@ -300,109 +246,55 @@ function UseCases() {
   );
 }
 
-
-/* ─── CTA ────────────────────────────────────────────────────────────── */
 function CTA() {
   return (
-    <div className="flex justify-center items-center  mb-3" >
-      <section className="py-24 px-4 bg-gray-950 rounded-md w-[90%] ">
-      <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-          Your next great draft
-          <br />
-          <span className="text-gray-400">is already in there somewhere.</span>
+    <section className="bg-white px-4 pb-20">
+      <div className="mx-auto max-w-6xl rounded-3xl border border-gray-800 bg-gray-950 px-6 py-14 text-center sm:px-10 sm:py-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">Start now</p>
+        <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
+          Your best draft is already in the timeline.
         </h2>
-        <p className="mt-5 text-gray-400 text-base">
-          Start writing with a safety net. Every version, saved forever.
+        <p className="mx-auto mt-4 max-w-2xl text-gray-400">
+          Create your workspace, write naturally, and let version history work quietly in the background.
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <button className="px-8 py-3 bg-white text-gray-900 rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors">
-            Create your first document
-          </button>
-          <button className="px-8 py-3 border border-gray-700 text-gray-300 rounded-full font-semibold text-sm hover:border-gray-500 transition-colors">
-            View pricing
-          </button>
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link
+            to="/signup"
+            className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-gray-900 transition-colors hover:bg-gray-200"
+          >
+            Create free account
+          </Link>
+          <Link
+            to="/signin"
+            className="inline-flex items-center justify-center rounded-full border border-gray-700 px-7 py-3 text-sm font-semibold text-gray-300 transition-colors hover:border-gray-500 hover:text-white"
+          >
+            Sign in
+          </Link>
         </div>
-        <p className="mt-4 text-xs text-gray-600">Free forever for personal use. No credit card needed.</p>
       </div>
     </section>
-    </div>
   );
 }
-
-/* ─── Footer ─────────────────────────────────────────────────────────── */
-const footerLinks = {
-  Product: ["Editor", "Version History", "Diff Viewer", "Milestones", "Pricing"],
-  Resources: ["Documentation", "Changelog", "API", "Status", "Blog"],
-  Company: ["About", "Careers", "Press", "Contact"],
-  Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
-};
 
 function Footer() {
   return (
-    <footer className="bg-gray-950 border-t border-gray-800 px-4 pt-16 pb-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
-          <div className="col-span-2 md:col-span-1">
-            <div className="text-white font-black text-xl tracking-tight mb-3">Docrev</div>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Version control for the documents that matter most.
-            </p>
-            <div className="flex gap-3 mt-5">
-              {["𝕏", "in", "gh"].map((s) => (
-                <button
-                  key={s}
-                  className="w-8 h-8 rounded-full border border-gray-700 text-gray-400 text-xs hover:border-gray-500 hover:text-white transition-colors"
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <p className="text-white text-xs font-semibold tracking-widest uppercase mb-4">
-                {title}
-              </p>
-              <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-gray-500 text-sm hover:text-gray-200 transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-gray-600 text-xs">
-            © {new Date().getFullYear()} Docrev. All rights reserved.
-          </p>
-          <p className="text-gray-600 text-xs">Every word, every version — forever.</p>
-        </div>
+    <footer className="border-t border-gray-200 bg-white px-4 py-8">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-sm text-gray-500 sm:flex-row">
+        <p>© {new Date().getFullYear()} Kodoc. All rights reserved.</p>
+        <p>Every edit tracked. Every decision recoverable.</p>
       </div>
     </footer>
   );
 }
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen font-sans">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap');
-        body { font-family: 'DM Sans', 'Inter', system-ui, sans-serif; }
-      `}</style>
       <Navbar />
       <Hero />
-      <Features />
-      <HowItWorks />
-      <UseCases />
+      <FeatureGrid />
+      <Workflow />
+      <SocialProof />
       <CTA />
       <Footer />
     </div>

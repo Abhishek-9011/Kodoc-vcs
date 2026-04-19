@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useToast } from "@/components/ToastProvider";
 
 
 // ── Gradient Left Panel ────────────────────────────────────────────────────────
@@ -18,7 +19,7 @@ function GradientPanel() {
       className="relative hidden md:flex flex-col justify-between h-full rounded-2xl overflow-hidden p-8 select-none"
       style={{
         background:
-          "linear-gradient(150deg, #0d0d1e 0%, #1b0538 18%, #5a0d9e 42%, #b81a5e 64%, #e91e7a 80%, #ff4d8f 100%)",
+          "radial-gradient(ellipse at 35% 20%, #2b2b2b 0%, #1f1f1f 45%, #121212 100%)",
       }}
     >
       {/* Ambient blobs */}
@@ -26,9 +27,9 @@ function GradientPanel() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse 90% 55% at 25% 15%, rgba(255,60,130,0.45) 0%, transparent 65%),
-            radial-gradient(ellipse 70% 85% at 75% 55%, rgba(90,15,175,0.55) 0%, transparent 65%),
-            radial-gradient(ellipse 100% 45% at 5% 90%, rgba(12,4,50,0.95) 0%, transparent 55%)
+            radial-gradient(ellipse 90% 55% at 25% 15%, rgba(255,255,255,0.08) 0%, transparent 65%),
+            radial-gradient(ellipse 70% 85% at 75% 55%, rgba(255,255,255,0.06) 0%, transparent 65%),
+            radial-gradient(ellipse 100% 45% at 5% 90%, rgba(0,0,0,0.35) 0%, transparent 55%)
           `,
         }}
       />
@@ -45,7 +46,7 @@ function GradientPanel() {
             d={`M${-80 + i * 25} ${180 + i * 55} Q${190 + i * 18} ${80 + i * 35} ${480 + i * 12} ${280 + i * 48} T${860 + i * 8} ${230 + i * 42}`}
             fill="none"
             stroke={
-              i % 2 === 0 ? "rgba(255,110,185,0.65)" : "rgba(140,40,255,0.45)"
+              i % 2 === 0 ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.18)"
             }
             strokeWidth={i % 3 === 0 ? "2" : "1.2"}
           />
@@ -57,7 +58,7 @@ function GradientPanel() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(155deg, rgba(0,190,255,0.12) 0%, transparent 38%, rgba(255,70,155,0.08) 72%, transparent 100%)",
+            "linear-gradient(155deg, rgba(255,255,255,0.08) 0%, transparent 38%, rgba(255,255,255,0.04) 72%, transparent 100%)",
         }}
       />
 
@@ -98,9 +99,9 @@ export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
 
   const { signin, loading, error, isAuthenticated } = useAuthStore();
+  const toast = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,8 +111,17 @@ export default function Signin() {
   }, [isAuthenticated, navigate]);
 
   const handleSignIn = async () => {
-    if (!email || !password) return;
-    await signin({ email, password });
+    if (!email || !password) {
+      toast.error("Please enter both email and password");
+      return;
+    }
+    try {
+      await signin({ email, password });
+      toast.success("Welcome back!");
+      navigate("/dashboard");
+    } catch (err) {
+      toast.error(err.message || "Sign in failed");
+    }
   };
 
   return (
@@ -177,7 +187,7 @@ export default function Signin() {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-11 rounded-xl bg-slate-50 border-slate-200 text-gray-800 placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-gray-900 focus-visible:border-gray-900"
+                  className="h-11 rounded-xl bg-gray-50 border-gray-200 text-gray-800 placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-gray-900 focus-visible:border-gray-900"
                 />
               </div>
 
@@ -196,7 +206,7 @@ export default function Signin() {
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-11 pr-11 rounded-xl bg-slate-50 border-slate-200 text-gray-800 placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-gray-900 focus-visible:border-gray-900"
+                    className="h-11 pr-11 rounded-xl bg-gray-50 border-gray-200 text-gray-800 placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-gray-900 focus-visible:border-gray-900"
                   />
                   <Button
                     type="button"

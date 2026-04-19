@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { User } from "lucide-react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated, user } = useAuthStore();
+  const navigate = useNavigate();
   const links = [];
 
   return (
@@ -10,7 +14,7 @@ function Navbar() {
       {/* Logo */}
       <div className="flex items-center gap-2 font-bold text-lg text-gray-900">
         <div className="grid grid-cols-2 gap-0.5">
-          <div className="w-2 h-2 rounded-full bg-blue-500" />
+          <div className="w-2 h-2 rounded-full bg-gray-500" />
           <div className="w-2 h-2 rounded-full bg-gray-800" />
           <div className="w-2 h-2 rounded-full bg-gray-800" />
           <div className="w-2 h-2 rounded-full bg-gray-800" />
@@ -33,12 +37,26 @@ function Navbar() {
 
       {/* Right actions */}
       <div className="hidden md:flex items-center gap-3">
-        <button className="text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5">
-          <Link to={"/signin"}>Sign in</Link>
-        </button>
-        <button className="text-sm font-medium border border-gray-300 rounded-lg px-4 py-1.5 hover:bg-gray-50 transition-colors text-gray-800">
-          <Link to={"/signup"}>Sign up</Link>
-        </button>
+        {isAuthenticated ? (
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5"
+          >
+            <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              {user?.username?.charAt(0)?.toUpperCase() || 'U'}
+            </div>
+            <span>{user?.username || 'User'}</span>
+          </button>
+        ) : (
+          <>
+            <button className="text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5">
+              <Link to={"/signin"}>Sign in</Link>
+            </button>
+            <button className="text-sm font-medium border border-gray-300 rounded-lg px-4 py-1.5 hover:bg-gray-50 transition-colors text-gray-800">
+              <Link to={"/signup"}>Sign up</Link>
+            </button>
+          </>
+        )}
       </div>
 
       {/* Mobile hamburger */}
@@ -78,10 +96,29 @@ function Navbar() {
             </a>
           ))}
           <div className="flex gap-3 pt-2 border-t border-gray-100">
-            <button className="text-sm text-gray-600">Sign in</button>
-            <button className="text-sm font-medium border border-gray-300 rounded-lg px-4 py-1.5">
-              Get demo
-            </button>
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  navigate("/dashboard");
+                  setMenuOpen(false);
+                }}
+                className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+              >
+                <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  {user?.username?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+                <span>{user?.username || 'User'}</span>
+              </button>
+            ) : (
+              <>
+                <button className="text-sm text-gray-600">
+                  <Link to={"/signin"} onClick={() => setMenuOpen(false)}>Sign in</Link>
+                </button>
+                <button className="text-sm font-medium border border-gray-300 rounded-lg px-4 py-1.5">
+                  <Link to={"/signup"} onClick={() => setMenuOpen(false)}>Sign up</Link>
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
