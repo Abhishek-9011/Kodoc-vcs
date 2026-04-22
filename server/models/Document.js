@@ -22,11 +22,7 @@ const documentSchema = new mongoose.Schema(
       ref: "Version",
       default: null,
     },
-    latestContentHash: {
-      type: String,
-      default: "",
-      index: true,
-    },
+
   },
   { timestamps: true }
 );
